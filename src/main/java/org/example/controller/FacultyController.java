@@ -1,17 +1,13 @@
 package org.example.controller;
 
 import org.example.model.Faculty;
+import org.example.model.Student;
 import org.example.service.FacultyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 
 @RestController
@@ -52,6 +48,20 @@ public class FacultyController {
     public ResponseEntity<Void> deleteFaculty(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(params = "!colorOrName")
+    public Collection<Faculty> findByColor(@RequestParam String color) {
+        return facultyService.findByColor(color);
+    }
+
+    @GetMapping(params = "colorOrName")
+    public Collection<Faculty> findByNameOrColor(@RequestParam String nameOrColor) {
+        return facultyService.findByNameOrColor(nameOrColor);
+    }
+    @GetMapping("/{id}/students")
+    public  Collection<Student> findStudentByFaculty(@PathVariable Long id) {
+        return facultyService.findStudentByFaculty(id);
     }
 
 

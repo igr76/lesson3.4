@@ -1,7 +1,9 @@
 package org.example.service;
 
+import java.util.Collection;
 import java.util.HashMap;
 
+import org.example.model.Faculty;
 import org.example.model.Student;
 import org.example.repository.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -31,4 +33,15 @@ public class StudentService {
     public void deleteStudent(long id) {
          studentRepository.deleteById(id);
     }
+
+    public Collection<Student> findByAge(int age) {
+        return studentRepository.findAllByAge(age);
+    }
+    public Collection<Student> findByAgeBetween(int minAge,int maxAge) {
+        return studentRepository.findByAgeBetween(minAge,maxAge);
+    }
+    public Faculty findFacultyByStudent(long id) {
+        return findStudent(id).getFaculty();
+    }
+
 }
